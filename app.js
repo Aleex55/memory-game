@@ -63,6 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const score = document.querySelector('.score');
 
+  const cardNames = document.querySelector('.nom-carta');
+
   tablero.addEventListener('mouseout', cambioAVerde);
 
   tablero.addEventListener('mouseover', cambioAAzul);
@@ -88,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cards[optionOneId].setAttribute('src', 'images/blank.png')
       cards[optionTwoId].setAttribute('src', 'images/blank.png')
       alert('You have clicked the same image!')
+      cardNames.innerHTML = '';
     }
     else if (cardsChosen[0] === cardsChosen[1]) {
       alert('You found a match')
@@ -96,10 +99,12 @@ document.addEventListener('DOMContentLoaded', () => {
       cards[optionOneId].removeEventListener('click', flipCard)
       cards[optionTwoId].removeEventListener('click', flipCard)
       cardsWon.push(cardsChosen)
+      cardNames.innerHTML = '';
     } else {
       cards[optionOneId].setAttribute('src', 'images/blank.png')
       cards[optionTwoId].setAttribute('src', 'images/blank.png')
       alert('Sorry, try again')
+      cardNames.innerHTML = '';
     }
     cardsChosen = []
     cardsChosenId = []
@@ -115,6 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsChosen.push(cardArray[cardId].name)
     cardsChosenId.push(cardId)
     this.setAttribute('src', cardArray[cardId].img)
+
+    const card = document.createElement('div');
+        const rowContent = `
+        <div class="card">
+        <h3>${cardArray[cardId].name}</h3>
+        </div>`;
+        
+        cardNames.append(card);
+        card.innerHTML = rowContent;
+
     if (cardsChosen.length ===2) {
       setTimeout(checkForMatch, 500)
     }
