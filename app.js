@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cardsChosenId = []
   let cardsWon = []
   let vidas = 4;
+  let acciones = 0;
 
   const tablero = document.querySelector('.grid');
 
@@ -66,9 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const cardNames = document.querySelector('.nom-carta');
 
+  const historial = document.querySelector('.historial');
+
+  const historialBtn = document.getElementById("showHistorial");
+
   tablero.addEventListener('mouseout', cambioAVerde);
 
   tablero.addEventListener('mouseover', cambioAAzul);
+
+  historialBtn.addEventListener('click', muestraHistorial);
 
   //create your board
   function createBoard() {
@@ -94,21 +101,57 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('You have clicked the same image!')
       cardNames.innerHTML = '';
       vidas--;
+
+      acciones++;
+
+      const historialRow = document.createElement('div');
+      const historialContent = `
+      <div class="historial-row">
+      <p>Accio ${acciones}: You have clicked the same image!</p>
+      </div>`;
+      
+      historial.append(historialRow);
+      historialRow.innerHTML = historialContent;
+
     }
     else if (cardsChosen[0] === cardsChosen[1]) {
-      alert('You found a match')
+      alert('You found a match!')
       cards[optionOneId].setAttribute('src', 'images/white.png')
       cards[optionTwoId].setAttribute('src', 'images/white.png')
       cards[optionOneId].removeEventListener('click', flipCard)
       cards[optionTwoId].removeEventListener('click', flipCard)
       cardsWon.push(cardsChosen)
       cardNames.innerHTML = '';
+
+      acciones++;
+
+      const historialRow = document.createElement('div');
+      const historialContent = `
+      <div class="historial-row">
+      <p>Accio ${acciones}: You found a match!</p>
+      </div>`;
+      
+      historial.append(historialRow);
+      historialRow.innerHTML = historialContent;
+
     } else {
       cards[optionOneId].setAttribute('src', 'images/blank.png')
       cards[optionTwoId].setAttribute('src', 'images/blank.png')
       alert('Sorry, try again')
       cardNames.innerHTML = '';
       vidas--;
+
+      acciones++;
+
+      const historialRow = document.createElement('div');
+      const historialContent = `
+      <div class="historial-row">
+      <p>Accio ${acciones}: Sorry, try again</p>
+      </div>`;
+      
+      historial.append(historialRow);
+      historialRow.innerHTML = historialContent;
+
     }
 
     vidasContainer.innerHTML= vidas;
@@ -118,10 +161,32 @@ document.addEventListener('DOMContentLoaded', () => {
     resultDisplay.textContent = cardsWon.length
     if  (cardsWon.length === cardArray.length/2) {
       resultDisplay.textContent = 'Congratulations! You found them all!'
+
+      acciones++;
+
+      const historialRow = document.createElement('div');
+      const historialContent = `
+      <div class="historial-row">
+      <p>Accio ${acciones}: Congratulations! You found them all!</p>
+      </div>`;
+      
+      historial.append(historialRow);
+      historialRow.innerHTML = historialContent;
     }
     if (vidas <= 0){
       alert('Has perdut Alex Arredondo Rodriguez');
+      acciones++;
+
+      const historialRow = document.createElement('div');
+      const historialContent = `
+      <div class="historial-row">
+      <p>Accio ${acciones}: Has perdut Alex Arredondo Rodriguez</p>
+      </div>`;
+      
+      historial.append(historialRow);
+      historialRow.innerHTML = historialContent;
     }
+
   }
 
   //flip your card
@@ -152,5 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function cambioAAzul() {
     score.style.color = "blue";
+  }
+
+  function muestraHistorial (){
+    historial.className = "show";
   }
 })

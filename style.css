@@ -4,3 +4,11 @@
   width: 400px;
   height: 300px;
 }
+
+.historial {
+  visibility: hidden;
+}
+
+.snackbar.show{
+  visibility: visible;
+}
