@@ -59,6 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let cardsChosenId = []
   let cardsWon = []
 
+  const tablero = document.querySelector('.grid');
+
+  const score = document.querySelector('.score');
+
+  tablero.addEventListener('mouseout', cambioAVerde);
+
+  tablero.addEventListener('mouseover', cambioAAzul);
+
   //create your board
   function createBoard() {
     for (let i = 0; i < cardArray.length; i++) {
@@ -113,4 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   createBoard()
+
+  function cambioAVerde() {
+    score.style.color = "green";
+  }
+  function cambioAAzul() {
+    score.style.color = "blue";
+  }
 })
