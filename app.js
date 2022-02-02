@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let cardsChosen = []
   let cardsChosenId = []
   let cardsWon = []
+  let vidas = 4;
 
   const tablero = document.querySelector('.grid');
 
@@ -82,6 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   //check for matches
   function checkForMatch() {
+    let vidasContainer = document.getElementById("vidas");
     const cards = document.querySelectorAll('img')
     const optionOneId = cardsChosenId[0]
     const optionTwoId = cardsChosenId[1]
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cards[optionTwoId].setAttribute('src', 'images/blank.png')
       alert('You have clicked the same image!')
       cardNames.innerHTML = '';
+      vidas--;
     }
     else if (cardsChosen[0] === cardsChosen[1]) {
       alert('You found a match')
@@ -105,12 +108,19 @@ document.addEventListener('DOMContentLoaded', () => {
       cards[optionTwoId].setAttribute('src', 'images/blank.png')
       alert('Sorry, try again')
       cardNames.innerHTML = '';
+      vidas--;
     }
+
+    vidasContainer.innerHTML= vidas;
+     
     cardsChosen = []
     cardsChosenId = []
     resultDisplay.textContent = cardsWon.length
     if  (cardsWon.length === cardArray.length/2) {
       resultDisplay.textContent = 'Congratulations! You found them all!'
+    }
+    if (vidas <= 0){
+      alert('Has perdut Alex Arredondo Rodriguez');
     }
   }
 
