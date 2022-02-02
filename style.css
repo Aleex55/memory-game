@@ -4,3 +4,11 @@
   width: 400px;
   height: 300px;
 }
+
+.score:hover {
+  color:rgb(15, 112, 150);
+}
+
+body:hover{
+  color: rgb(54, 211, 54);
+}
